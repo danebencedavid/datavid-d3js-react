@@ -1,0 +1,19 @@
+Time Start (min),Time End (min),Topic,Duration (min),Intensity (1-5),Key Jurors Involved,Description
+0,5,Jury Instructions,5,1,Juror 1,Introduction to the case and judge’s instructions to reach a unanimous verdict.
+5,10,Initial Voting,5,2,"Juror 8, Juror 1",Discussion about voting immediately vs. discussing the case. Juror 8 advocates for thorough deliberation  leading to the first vote.
+10,15,Defendant’s Background,5,3,"Juror 3, Juror 10",Heated debate over the defendant’s troubled background  with Juror 3 and Juror 10 expressing biases and doubts.
+15,20,Knife as Evidence,5,3,"Juror 8, Juror 3",Debate on the uniqueness of the murder weapon  with Juror 8 presenting an identical knife to challenge assumptions.
+20,25,First Not Guilty Vote,5,3,All Jurors,"Juror 8 casts the only ""Not Guilty"" vote  prompting intense reactions from others  especially Juror 3."
+25,35,Eyewitness Testimony,10,4,"Juror 9, Juror 8",Argument about the reliability of the old man’s testimony  with Juror 9 supporting Juror 8's doubts on its validity.
+35,40,Timing of Testimony,5,3,"Juror 8, Juror 6",Examination of the old man’s testimony timing  specifically if he could reach the door in time to witness the event.
+40,45,Reenactment,5,3,"Juror 8, Juror 4",Juror 8 reenacts the old man’s walk to assess the plausibility of his testimony  raising further doubts among the jurors.
+45,50,Woman’s Glasses,5,4,"Juror 9, Juror 8",Juror 9 suggests that the woman may not have been able to see clearly without her glasses  casting doubt on her eyewitness testimony.
+50,55,Defendant’s Alibi,5,3,"Juror 3, Juror 7",Further discussion about the defendant’s alibi  questioning its strength and whether he was at the movies as claimed.
+55,60,Murder Sequence,5,3,"Juror 8, Juror 5",Analysis of how the murder took place and whether the defendant could have committed it under the given circumstances.
+60,65,Reasonable Doubt,5,4,"Juror 8, Juror 4",Juror 8 and Juror 11 argue that inconsistencies in testimony provide reasonable doubt  intensifying the debate among jurors.
+65,70,Emotional Breakdown,5,5,"Juror 3, Juror 8",Emotional confrontation where Juror 3 breaks down  leading him to reconsider his vote.
+70,75,Building Tension,5,4,All Jurors,Jurors begin to turn toward reasonable doubt  questioning their prior judgments in light of inconsistencies in testimonies.
+75,80,Voting Turnaround,5,3,All Jurors,"Jurors take another vote with several changing to ""Not Guilty"" due to mounting reasonable doubt  resulting in a majority for acquittal."
+80,90,Final Persuasions,10,3,"Juror 8, Juror 3",Juror 8’s persistence and final arguments bring other jurors to his side  with only Juror 3 holding out due to personal grievances and biases.
+90,95,Final Vote,5,3,All Jurors,"Final discussion solidifies the unanimous ""Not Guilty"" vote  with jurors reflecting on the deliberation process and acknowledging their changed perspectives."
+95,96,Exit and Reflections,1,1,"Juror 8, Juror 9",Jurors leave the courthouse  with Juror 8 and Juror 9 sharing a moment of mutual respect  symbolizing the impact of the deliberation on their views.
