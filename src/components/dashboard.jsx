@@ -1,82 +1,69 @@
 import React from 'react';
-import NetworkDiagram from './charts/influence-network'; // Adjust path as necessary
-import JurorRadarCharts from './charts/personality-radar'; 
-import VintageTimeline from './charts/topics-heatmap';// Adjust path as necessary
+import './NewspaperDashboard.css'; // Import CSS for vintage newspaper style
+import VintageTimeline from './charts/topics-heatmap';
+import  Chord  from './charts/chord';
+import JurorScatterplot from './charts/scatter';
+import LineGraph from './charts/silence-line';
 
-const Dashboard = () => {
+const NewspaperDashboard = () => {
   return (
-    <div style={styles.dashboard}>
-      <h1 style={styles.title}>The Daily Dashboard</h1>
-      <div style={styles.visualizationContainer}>
-        <div style={styles.timelineContainer}>
-          <h2 style={styles.sectionTitle}>Vintage Timeline</h2>
-          <VintageTimeline />
-        </div>
-        <div style={styles.rightContainer}>
-          <h2 style={styles.sectionTitle}>Juror Radar Charts</h2>
-          <div style={styles.jurorRadarContainer}>
-            <JurorRadarCharts />
-          </div>
-          <h2 style={styles.sectionTitle}>Network Diagram</h2>
-          <div style={styles.networkDiagramContainer}>
-            <NetworkDiagram />
-          </div>
+    <div className="newspaper-dashboard">
+      <header className="header">
+        <h1>The Daily Verdict</h1>
+        <h2>Special Report: *12 Angry Men* Jury Deliberations</h2>
+        <p>Published: July 15, 1957 | Volume IX, No. 42</p>
+      </header>
+
+      {/* First row: Chord Diagram */}
+      <div className="article">
+        <h3>The Jury in Motion: Influence and Conflict</h3>
+        <p>
+          In a dramatic courtroom battle, the twelve jurors tasked with deciding the fate of a young man
+          accused of murder displayed an intricate web of persuasion, resistance, and unexpected alliances.
+          Our investigative team has broken down the dynamics of influence in the jury room, presenting the
+          *Chord Diagram* below.
+        </p>
+        <div className="chart-container">
+          <Chord />
         </div>
       </div>
+
+      {/* Second row: Silence Line Chart and Vintage Timeline */}
+      <div className="two-column-section">
+        <div className="article">
+          <h3>The Sound of Silence: Key Pauses in the Deliberations</h3>
+          <p>
+            Silence, they say, can be more deafening than words. As tensions rose, moments of quiet reflection or
+            emotional outbursts punctuated the heated discussions. The line chart below captures these critical
+            pauses and their impact.
+          </p>
+          <div className="chart-container">
+            <LineGraph />
+          </div>
+        </div>
+
+      {/* Third row: Scatter Chart */}
+      <div className="article">
+        <h3>Dissecting Doubt: Key Moments in the Debate</h3>
+        <p>
+          At critical junctures during deliberations, some jurors cast doubt on seemingly irrefutable evidence,
+          prompting heated exchanges. The scatterplot below examines the points of agreement and contention
+          during these pivotal moments.
+        </p>
+        <div className="chart-container">
+          <JurorScatterplot />
+        </div>
+      </div>
+
+      <footer className="footer">
+        <p>
+          <strong>The Daily Verdict</strong> | Reporting Justice Since 1923<br />
+          *Disclaimer*: This report is a fictionalized account inspired by the classic drama *12 Angry Men*.
+        </p>
+      </footer>
+    </div>
     </div>
   );
 };
 
-const styles = {
-  dashboard: {
-    fontFamily: '"Times New Roman", Times, serif',
-    padding: '20px',
-    backgroundColor: '#f4f4f4', // Light beige color for an old paper feel
-    maxWidth: '1200px',
-    margin: '0 auto', // Center the dashboard
-    borderRadius: '5px',
-    backgroundSize: 'cover',
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: '2.5em', // Larger title for newspaper headline
-    marginBottom: '20px',
-    color: '#4a4a4a', // Dark grey for a vintage look
-    textDecoration: 'underline', // Underline for a classic look
-  },
-  visualizationContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between', // Space between left and right containers
-    gap: '20px', // Space between items
-  },
-  timelineContainer: {
-    flex: '1 1 40%', // Take 40% of the width
-    padding: '15px',
-    backgroundColor: '#eae6d6', // Light yellowish background for the timeline
-  },
-  rightContainer: {
-    flex: '1 1 55%', // Take 55% of the width
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  jurorRadarContainer: {
-    flex: '1 1 auto', // Automatic height based on content
-    padding: '15px',
-    backgroundColor: '#eae6d6', // Same light yellowish background
-    marginBottom: '20px', // Space between radar charts and network diagram
-  },
-  networkDiagramContainer: {
-    flex: '1 1 auto', // Automatic height based on content
-    padding: '15px',
-    backgroundColor: '#eae6d6', // Same light yellowish background
-  },
-  sectionTitle: {
-    fontSize: '1.5em',
-    marginBottom: '10px',
-    paddingBottom: '5px',
-    color: '#333', // Darker color for text
-  },
-};
-
-export default Dashboard;
+export default NewspaperDashboard;

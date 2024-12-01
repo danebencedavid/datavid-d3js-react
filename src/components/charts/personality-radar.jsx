@@ -1,5 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RadarChart from '../../assets/radarchart'; // Adjust the import path as necessary
+
+// Default empty data for the radar chart
+const defaultRadarData = {
+  jurorName: 'Empty Chart',
+  Persistence: 0,
+  Empathy: 0,
+  'Critical Thinking': 0,
+  Aggression: 0,
+  'Open-Mindedness': 0,
+};
 
 // Juror data for all jurors
 const jurorsData = [
@@ -102,31 +112,57 @@ const jurorsData = [
 ];
 
 const JurorRadarCharts = () => {
+  const [selectedJuror, setSelectedJuror] = useState(defaultRadarData);
+
+  const handleChange = (event) => {
+    const jurorName = event.target.value;
+    const juror = jurorsData.find(j => j.jurorName === jurorName);
+    setSelectedJuror(juror || defaultRadarData);
+  };
+
   return (
     <div style={styles.container}>
-      {jurorsData.map((juror) => (
-        <div key={juror.jurorName} style={styles.chartContainer}>
-          <RadarChart jurorData={juror} />
-        </div>
-      ))}
+      <h3 style={styles.header}>Select a Juror to Visualize</h3>
+
+      <select onChange={handleChange} style={styles.dropdown}>
+        <option value="">-- Select a Juror --</option>
+        {jurorsData.map(juror => (
+          <option key={juror.jurorName} value={juror.jurorName}>
+            {juror.jurorName}
+          </option>
+        ))}
+      </select>
+
+      <div style={styles.chartContainer}>
+        <RadarChart jurorData={selectedJuror} width={250} height={250} />
+      </div>
     </div>
   );
 };
 
 const styles = {
   container: {
-    display: 'flex',
-    flexWrap: 'wrap', // Allow wrapping to the next line if necessary
-    justifyContent: 'space-between', // Space out charts evenly
-    gap: '20px', // Space between radar charts
+    textAlign: 'center',
+    margin: '20px auto',
+    maxWidth: '400px',
+    fontFamily: 'Arial, sans-serif',
+  },
+  header: {
+    fontSize: '16px',
+    marginBottom: '10px',
+    fontWeight: 'bold',
+  },
+  dropdown: {
+    padding: '8px',
+    fontSize: '14px',
+    marginBottom: '10px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
   },
   chartContainer: {
-    flex: '1 1 200px', // Adjusts the size of each radar chart container
-    textAlign: 'center', // Center the juror names below the charts
-    padding: '10px',
-    backgroundColor: '#eae6d6', // Light yellowish background to match the newspaper theme
-    borderRadius: '4px', // Slight rounding for aesthetics
-  }
+    display: 'inline-block',
+    marginTop: '10px',
+  },
 };
 
 export default JurorRadarCharts;

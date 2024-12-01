@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import { interpolatePath } from 'd3-interpolate-path';
 
-const RadarChart = ({ jurorData, width = 450, height = 350 }) => {
+const RadarChart = ({ jurorData, width = 250, height = 250 }) => {
   const svgRef = useRef();
+  const previousDataRef = useRef();
 
   useEffect(() => {
-    if (!jurorData || Object.keys(jurorData).length === 0) return;
-
     const levels = 5;
     const maxValue = 10;
 
@@ -14,7 +14,6 @@ const RadarChart = ({ jurorData, width = 450, height = 350 }) => {
       .attr('width', width)
       .attr('height', height)
       .attr('viewBox', `0 0 ${width} ${height}`);
-      /* .style('background-color', '#f2ece3') */
 
     svg.selectAll('*').remove();
 
@@ -33,17 +32,17 @@ const RadarChart = ({ jurorData, width = 450, height = 350 }) => {
     const chartGroup = svg.append('g')
       .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
-    // Grid circles with a distressed, dashed line
+    // Grid circles
     Array.from({ length: levels }, (_, i) => i + 1).forEach(level => {
       chartGroup.append('circle')
         .attr('r', radiusScale((level / levels) * maxValue))
         .attr('fill', 'none')
         .attr('stroke', '#4a4a4a')
-        .attr('stroke-width', 0.8)
+        .attr('stroke-width', 0.6)
         .attr('stroke-dasharray', '3 2');
     });
 
-    // Axis lines with a bolder, dashed stroke
+    // Axis lines
     attributes.forEach((_, i) => {
       const x = radiusScale(maxValue) * Math.cos(angleSlice * i - Math.PI / 2);
       const y = radiusScale(maxValue) * Math.sin(angleSlice * i - Math.PI / 2);
@@ -53,8 +52,7 @@ const RadarChart = ({ jurorData, width = 450, height = 350 }) => {
         .attr('x2', x)
         .attr('y2', y)
         .attr('stroke', '#333')
-        .attr('stroke-width', 1.2)
-        .attr('stroke-dasharray', '4 3');
+        .attr('stroke-width', 1);
     });
 
     // Prepare data for radar area
@@ -63,19 +61,31 @@ const RadarChart = ({ jurorData, width = 450, height = 350 }) => {
       value: jurorData[attr] || 0,
     }));
 
-    // Radar area with a muted fill and dark border
-    chartGroup.append('path')
-      .datum(radarData)
+    // Get previous data for smooth transition
+    const previousData = previousDataRef.current || radarData;
+    previousDataRef.current = radarData;
+
+    // Radar area with animation
+    const radarPath = chartGroup.append('path')
+      .datum(previousData)
       .attr('d', radarLine)
       .attr('fill', '#4a4a4a')
       .attr('fill-opacity', 0.4)
       .attr('stroke', '#333')
       .attr('stroke-width', 1.5);
 
-    // Labels with vintage styling
+    // Transition to new radar area
+    radarPath.transition()
+      .duration(800)
+      .attrTween('d', function () {
+        const interpolator = interpolatePath(radarLine(previousData), radarLine(radarData));
+        return t => interpolator(t);
+      });
+
+    // Labels
     radarData.forEach((d, i) => {
-      const x = radiusScale(maxValue * 1.15) * Math.cos(angleSlice * i - Math.PI / 2);
-      const y = radiusScale(maxValue * 1.15) * Math.sin(angleSlice * i - Math.PI / 2);
+      const x = radiusScale(maxValue * 1.1) * Math.cos(angleSlice * i - Math.PI / 2);
+      const y = radiusScale(maxValue * 1.1) * Math.sin(angleSlice * i - Math.PI / 2);
       chartGroup.append('text')
         .attr('x', x)
         .attr('y', y)
@@ -89,11 +99,11 @@ const RadarChart = ({ jurorData, width = 450, height = 350 }) => {
   }, [jurorData, width, height]);
 
   return (
-    <div style={{ textAlign: 'center', color: '#333' }}>
-      <h4 style={{ fontFamily: 'Arial, sans-serif', fontSize: '14px', fontWeight: 'bold' }}>
+    <div style={{ textAlign: 'center', color: '#333', margin: '0' }}>
+      <h4 style={{ fontFamily: 'Arial, sans-serif', fontSize: '12px', fontWeight: 'bold', marginBottom: '5px' }}>
         {jurorData.jurorName}
       </h4>
-      <svg ref={svgRef}></svg>
+      <svg ref={svgRef} style={{ display: 'block', margin: '0 auto' }}></svg>
     </div>
   );
 };
