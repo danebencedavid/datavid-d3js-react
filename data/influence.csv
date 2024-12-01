@@ -1,0 +1,31 @@
+﻿Time,Influencer,Influenced,Influence strength,Method of influence,Key moment / scene
+5,Juror 8,Juror 9,3,Logic,"Juror 8 raises reasonable doubt, urging a conversation."
+10,Juror 8,Juror 1,2,Logic,Juror 8 prompts Juror 1 to rethink rushing the vote.
+12,Juror 3,Juror 12,3,Emotion,Juror 3 pressures with a passionate guilty argument.
+15,Juror 8,Juror 5,4,Logic,"Juror 8 questions the uniqueness of the knife, influencing Juror 5."
+18,Juror 7,Juror 10,3,Emotion,"Juror 7 casually agrees with Juror 10, reinforcing a guilty stance."
+20,Juror 8,Juror 9,3,Logic,"Juror 8 introduces the identical switchblade, creating doubt for Juror 9."
+22,Juror 9,Juror 8,2,Emotion,"Juror 9 stands with Juror 8, affirming his logic."
+25,Juror 4,Juror 12,2,Logic,"Juror 4 argues for facts over emotions, keeping Juror 12 leaning guilty."
+28,Juror 8,Juror 5,3,Logic,"Juror 8 questions the old man’s testimony, making Juror 5 more doubtful."
+30,Juror 10,Juror 3,4,Emotion,Juror 10 stokes Juror 3’s emotional arguments about the defendant.
+32,Juror 8,Juror 2,4,Logic,"Juror 8 challenges whether the witness heard the murder, swaying Juror 2."
+35,Juror 5,Juror 6,3,Logic,"Juror 5 expresses doubt, subtly influencing Juror 6."
+38,Juror 8,Juror 11,3,Logic,"Juror 8 casts doubt on the reliability of the witness, swaying Juror 11."
+42,Juror 9,Juror 4,3,Logic,"Juror 9 points out the glasses marks, adding doubt for Juror 4."
+45,Juror 8,Juror 6,4,Logic,"Juror 8 breaks down the old man’s timing, swaying Juror 6's vote."
+50,Juror 4,Juror 12,3,Logic,"Juror 4 appeals to logic, slowing Juror 12’s emotional response."
+52,Juror 7,Juror 3,2,Emotion,Juror 7 briefly agrees with Juror 3’s emotional stance.
+55,Juror 3,Juror 10,4,Emotion,"Juror 3 reinforces Juror 10’s emotional bias, holding on to ""guilty""."
+58,Juror 8,Juror 5,3,Logic,Juror 8’s persistence continues to wear down Juror 5.
+60,Juror 8,Juror 6,4,Logic,"Juror 8 highlights flaws in the prosecution's timing, getting Juror 6 to switch."
+62,Juror 10,Juror 7,2,Emotion,Juror 10 appeals to Juror 7’s biases to keep him hesitant about changing his vote.
+65,Juror 11,Juror 2,3,Logic,"Juror 11, following Juror 8’s logic, reinforces Juror 2’s switch."
+68,Juror 8,Juror 12,3,Logic,Juror 8’s logical stance pushes Juror 12 closer to doubt.
+70,Juror 8,Juror 3,5,Logic,Juror 8’s calm dismantling of Juror 3’s emotional resistance finally breaks him down.
+72,Juror 8,Juror 7,3,Logic,Juror 8 convinces Juror 7 that doubt is enough to change his vote.
+75,Juror 12,Juror 10,3,Logic,Juror 12 breaks free of emotion and agrees with Juror 8’s logical stance.
+78,Juror 8,Juror 10,4,Logic,"Juror 8 breaks down Juror 10’s emotionally biased stance, with logic."
+80,Juror 8,Juror 1,3,Logic,Juror 8’s calm reasoning finally convinces Juror 1 to reconsider the vote.
+85,Juror 4,Juror 3,3,Logic,"Juror 4, moving towards reason, influences Juror 3 to lower his emotional guard."
+90,Juror 8,Juror 3,5,Logic,"The final breakdown of Juror 3’s emotional resistance, leading to unanimous ""not guilty""."
