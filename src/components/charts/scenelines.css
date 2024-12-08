@@ -1,0 +1,67 @@
+/* Container styles */
+.chart-container {
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  .chart-title {
+    color: #333;
+    text-align: center;
+    font-size: 20px;
+    font-weight: normal;
+  }
+  
+  /* SVG styles */
+  .chart-svg {
+    background-color: #f5f5dc; /* Light beige for a vintage look */
+    border: 1px solid #333; /* Dark border for framing */
+  }
+  
+  /* Tooltip styles */
+  .tooltip {
+    position: absolute;
+    padding: 4px;
+    background: #eee;
+    color: #333;
+    border: 1px solid #555;
+    border-radius: 3px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  }
+  
+  /* Line and circle styles */
+  .chart-line {
+    fill: none;
+    stroke: #333;
+    stroke-width: 1;
+    stroke-dasharray: 3, 3; /* Dashed line for visual distinction */
+  }
+  
+  .chart-circle {
+    fill: #333;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .chart-circle:hover {
+    transform: scale(1.2); /* Enlarge circle on hover */
+  }
+  
+  /* Background rectangle styles for data segments */
+  .bg-rect {
+    opacity: 0.5;
+  }
+  
+  /* Axis styles */
+  .axis text {
+    font-size: 12px;
+    fill: #333;
+  }
+  
+  .axis path,
+  .axis line {
+    stroke: #333;
+  }
+  

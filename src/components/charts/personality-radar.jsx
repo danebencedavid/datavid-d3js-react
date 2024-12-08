@@ -134,7 +134,7 @@ const JurorRadarCharts = () => {
       </select>
 
       <div style={styles.chartContainer}>
-        <RadarChart jurorData={selectedJuror} width={250} height={250} />
+        <RadarChart jurorData={selectedJuror} width={350} height={250} />
       </div>
     </div>
   );

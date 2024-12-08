@@ -5,12 +5,13 @@ import TopicGraph from './components/charts/vintage_graph';
 import VintageTimeline from './components/charts/topics-heatmap';
 import NewspaperDashboard from './components/dashboard';
 import JurorRadarCharts from './components/charts/personality-radar';
+import SceneLines from './components/charts/scene-line';
 
 
 function App() {
   return (
     <div className="App">
-      <JurorRadarCharts/>
+      <NewspaperDashboard/>
     </div>
   );
 }
