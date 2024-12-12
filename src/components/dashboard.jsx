@@ -1,10 +1,11 @@
 import React from 'react';
-import './NewspaperDashboard.css'; // Updated CSS for cohesive newspaper layout
+import './NewspaperDashboard.css';
 import Chord from './charts/chord';
-import RadarChart from './charts/personality-radar'; // Assume this is a radar chart component
+import RadarChart from './charts/personality-radar';
 import JurorScatterplot from './charts/scatter';
 import LineGraph from './charts/silence-line';
-import SceneLines from './charts/scene-line'; // Import SceneLines component
+import SceneLines from './charts/scene-line';
+import FrameChart from './charts/frame-intense';
 
 const NewspaperDashboard = () => {
   return (
@@ -17,7 +18,7 @@ const NewspaperDashboard = () => {
       </header>
 
       {/* Introduction Section */}
-      <section className="introduction">
+      <section className="introduction-section">
         <h3>Introduction to the Case</h3>
         <p>
           Twelve jurors, one room, and the fate of a young defendant charged with murder.
@@ -31,54 +32,54 @@ const NewspaperDashboard = () => {
         </p>
       </section>
 
-      {/* Main Content */}
-      <div className="content-columns">
-        {/* Left Column */}
-        <div className="column">
-          <section>
-            <h4>Chord Diagram</h4>
-            <Chord />
-            <p className="chart-description">
-              The jury's web of persuasion and resistance is captured in the
-              <strong> Chord Diagram</strong>. Observe how key jurors influenced their peers and
-              the alliances that emerged as deliberations unfolded.
-            </p>
-          </section>
+      {/* Frame Chart */}
+      <div className="frame-chart-wrapper">
+        <h4>Frame Intensities Over Time</h4>
+        <FrameChart dataFilePath="data/average_intensity.json" />
+      </div>
 
-          <section>
-            <h4>Personality Radar</h4>
-            <RadarChart />
-          </section>
+      {/* Main Content */}
+      <div className="grid-container">
+        <div className="grid-item">
+          <h4>Chord Diagram</h4>
+          <Chord />
+          <p className="chart-description">
+            The jury's web of persuasion and resistance is captured in the
+            <strong> Chord Diagram</strong>. Observe how key jurors influenced their peers and
+            the alliances that emerged as deliberations unfolded.
+          </p>
         </div>
 
-        {/* Right Column */}
-        <div className="column">
-          <section>
-            <h4>Juror Dynamics Scatterplot</h4>
-            <JurorScatterplot />
-          </section>
+        <div className="grid-item">
+          <h4>Personality Radar</h4>
+          <RadarChart />
+        </div>
 
-          <section>
-            <h4>Turning Points Over Time</h4>
-            <p className="chart-description">
-              Heated debates shaped the jury's decision, challenging preconceived notions of guilt and doubt.
-              Below, you’ll see how silence and reflection punctuated the discussions, providing key turning points
-              in the story.
-            </p>
-            <LineGraph />
-          </section>
+        <div className="grid-item">
+          <h4>Juror Dynamics Scatterplot</h4>
+          <JurorScatterplot />
+        </div>
+
+        <div className="grid-item">
+          <h4>Turning Points Over Time</h4>
+          <p className="chart-description">
+            Heated debates shaped the jury's decision, challenging preconceived notions of guilt and doubt.
+            Below, you’ll see how silence and reflection punctuated the discussions, providing key turning points
+            in the story.
+          </p>
+          <LineGraph />
         </div>
       </div>
 
-      {/* New Scene Lines Section */}
-      <section className="scene-lines-section">
+      {/* Scene Lines Section */}
+      <div className="grid-item full-width">
         <h4>Lines Spoken by Scene</h4>
-        <SceneLines csvPath="data/scene_analysis.csv" /> {/* Pass appropriate path */}
+        <SceneLines csvPath="data/scene_analysis.csv" />
         <p className="chart-description">
           Explore the intensity of each scene as reflected in the lines spoken. This visualization offers insights
           into which moments carried the most weight in the deliberation.
         </p>
-      </section>
+      </div>
 
       {/* Footer */}
       <footer className="footer">

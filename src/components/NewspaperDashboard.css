@@ -8,7 +8,7 @@ body {
 .newspaper-dashboard {
   display: flex;
   flex-direction: column;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc; /* Subtle border for newspaper effect */
@@ -64,22 +64,22 @@ body {
   margin-bottom: 10px;
 }
 
-/* Grid Layout */
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.grid-item {
+/* Chart Layout */
+.chart-wrapper {
+  margin-bottom: 20px;
   padding: 15px;
   background-color: #fff;
   border: 1px solid #ddd;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.05);
 }
 
-.grid-item.full-width {
-  grid-column: span 2; /* Allows full-width for specific items */
+.chart-wrapper h4 {
+  margin-bottom: 10px;
+}
+
+.chart-wrapper svg {
+  width: 100%; /* Ensure charts scale properly */
+  height: auto;
 }
 
 /* Footer Section */

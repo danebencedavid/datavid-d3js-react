@@ -20,6 +20,7 @@ const jurorsData = [
     'Critical Thinking': 6,
     Aggression: 5,
     'Open-Mindedness': 6,
+    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror1.jpg',
   },
   {
     jurorName: 'Juror 2',
@@ -28,6 +29,7 @@ const jurorsData = [
     'Critical Thinking': 5,
     Aggression: 2,
     'Open-Mindedness': 7,
+    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror2.jpg',
   },
   {
     jurorName: 'Juror 3',
@@ -36,6 +38,7 @@ const jurorsData = [
     'Critical Thinking': 7,
     Aggression: 9,
     'Open-Mindedness': 2,
+    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror3.jpg',
   },
   {
     jurorName: 'Juror 4',
@@ -44,6 +47,7 @@ const jurorsData = [
     'Critical Thinking': 9,
     Aggression: 4,
     'Open-Mindedness': 3,
+    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror4.jpg',
   },
   {
     jurorName: 'Juror 5',
@@ -52,6 +56,7 @@ const jurorsData = [
     'Critical Thinking': 6,
     Aggression: 4,
     'Open-Mindedness': 8,
+    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror5.jpg',
   },
   {
     jurorName: 'Juror 6',
@@ -60,6 +65,7 @@ const jurorsData = [
     'Critical Thinking': 5,
     Aggression: 6,
     'Open-Mindedness': 6,
+    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror6.jpg',
   },
   {
     jurorName: 'Juror 7',
@@ -68,6 +74,7 @@ const jurorsData = [
     'Critical Thinking': 4,
     Aggression: 7,
     'Open-Mindedness': 3,
+    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror7.jpg',
   },
   {
     jurorName: 'Juror 8',
@@ -76,6 +83,7 @@ const jurorsData = [
     'Critical Thinking': 10,
     Aggression: 2,
     'Open-Mindedness': 10,
+    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror8.jpg',
   },
   {
     jurorName: 'Juror 9',
@@ -84,6 +92,7 @@ const jurorsData = [
     'Critical Thinking': 8,
     Aggression: 3,
     'Open-Mindedness': 9,
+    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror9.jpg',
   },
   {
     jurorName: 'Juror 10',
@@ -92,6 +101,7 @@ const jurorsData = [
     'Critical Thinking': 4,
     Aggression: 8,
     'Open-Mindedness': 2,
+    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror10.jpg',
   },
   {
     jurorName: 'Juror 11',
@@ -100,6 +110,7 @@ const jurorsData = [
     'Critical Thinking': 8,
     Aggression: 3,
     'Open-Mindedness': 9,
+    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror11.jpg',
   },
   {
     jurorName: 'Juror 12',
@@ -108,8 +119,10 @@ const jurorsData = [
     'Critical Thinking': 5,
     Aggression: 6,
     'Open-Mindedness': 4,
+    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror12.jpg',
   },
 ];
+
 
 const JurorRadarCharts = () => {
   const [selectedJuror, setSelectedJuror] = useState(defaultRadarData);
@@ -133,8 +146,18 @@ const JurorRadarCharts = () => {
         ))}
       </select>
 
-      <div style={styles.chartContainer}>
-        <RadarChart jurorData={selectedJuror} width={350} height={250} />
+      <div style={styles.chartAndImageContainer}>
+        {selectedJuror.jurorName !== 'Empty Chart' && (
+          <img
+            src={selectedJuror.image}
+            alt={`${selectedJuror.jurorName}`}
+            style={styles.image}
+          />
+        )}
+
+        <div style={styles.chartContainer}>
+          <RadarChart jurorData={selectedJuror} width={350} height={250} />
+        </div>
       </div>
     </div>
   );
@@ -159,9 +182,22 @@ const styles = {
     borderRadius: '4px',
     border: '1px solid #ccc',
   },
+  chartAndImageContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '20px',
+    marginTop: '20px',
+  },
+  image: {
+    width: '150px',
+    height: '150px',
+    objectFit: 'cover',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
+  },
   chartContainer: {
     display: 'inline-block',
-    marginTop: '10px',
   },
 };
 
