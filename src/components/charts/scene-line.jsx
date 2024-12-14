@@ -13,10 +13,8 @@ const SceneLines = ({ csvPath }) => {
         lines: +d["Lines in Scene"],
         jurors: d["Jurors Present"] ? d["Jurors Present"].split(", ") : [],
         linesPerJuror: d["Lines Per Juror"]
-          ? JSON.parse(
-              d["Lines Per Juror"].replace(/'/g, '"') // Replace single quotes with double quotes
-            )
-          : {}
+          ? JSON.parse(d["Lines Per Juror"].replace(/'/g, '"')) // Replace single quotes with double quotes
+          : {},
       }));
       setData(parsedData);
     });
@@ -36,7 +34,7 @@ const SceneLines = ({ csvPath }) => {
     // Create SVG
     const svg = d3
       .select(svgRef.current)
-      .attr("width",( width + margin.left + margin.right * 10))
+      .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
@@ -46,10 +44,11 @@ const SceneLines = ({ csvPath }) => {
       .select("body")
       .append("div")
       .style("position", "absolute")
-      .style("background", "#f8f4e4") // Subtle yellow background
-      .style("border", "1px solid #ccc") // Light border
+      .style("background", "#f8f4e4")
+      .style("border", "1px solid #ccc")
       .style("border-radius", "4px")
       .style("padding", "10px")
+      .style("min-width", "220px") // Wider tooltip
       .style("box-shadow", "0px 3px 6px rgba(0, 0, 0, 0.1)")
       .style("font-family", "Georgia, 'Times New Roman', Times, serif")
       .style("color", "#333")
@@ -59,45 +58,37 @@ const SceneLines = ({ csvPath }) => {
     // X Scale
     const x = d3
       .scaleLinear()
-      .domain(d3.extent(data, d => d.scene)) // Get the min and max of the scenes
-      .range([0, width * 1.3]);
+      .domain(d3.extent(data, d => d.scene))
+      .range([0, width]);
 
     // Y Scale
     const y = d3
       .scaleLinear()
-      .domain([0, d3.max(data, d => d.lines)]) // Set the range for lines
+      .domain([0, d3.max(data, d => d.lines)])
       .range([height, 0]);
 
     // Add X Axis
     svg
       .append("g")
       .attr("transform", `translate(0, ${height})`)
-      .call(d3.axisBottom(x).tickFormat(d3.format("d"))) // Format tick to remove decimals
-      .attr("font-family", "Georgia, 'Times New Roman', Times, serif")
-      .attr("font-size", "14px")
-      .attr("color", "#333")
+      .call(d3.axisBottom(x).tickFormat(d3.format("d")))
       .append("text")
       .attr("y", 40)
       .attr("x", width / 2)
       .attr("fill", "#333")
       .attr("text-anchor", "middle")
-      .attr("font-weight", "bold")
       .text("Scene Number");
 
     // Add Y Axis
     svg
       .append("g")
       .call(d3.axisLeft(y))
-      .attr("font-family", "Georgia, 'Times New Roman', Times, serif")
-      .attr("font-size", "14px")
-      .attr("color", "#333")
       .append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", -40)
       .attr("x", -height / 2)
       .attr("fill", "#333")
       .attr("text-anchor", "middle")
-      .attr("font-weight", "bold")
       .text("Lines in Scene");
 
     // Create Line Generator
@@ -105,14 +96,14 @@ const SceneLines = ({ csvPath }) => {
       .line()
       .x(d => x(d.scene))
       .y(d => y(d.lines))
-      .curve(d3.curveMonotoneX); // Smooth the curve
+      .curve(d3.curveMonotoneX);
 
     // Append Path
     svg
       .append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", "#333") // Match the dashboard text color
+      .attr("stroke", "#333")
       .attr("stroke-width", 2)
       .attr("d", line);
 
@@ -125,64 +116,79 @@ const SceneLines = ({ csvPath }) => {
       .attr("cx", d => x(d.scene))
       .attr("cy", d => y(d.lines))
       .attr("r", 5)
-      .attr("fill", "#333") // Match the dashboard text color
-      .on("click", (event, d) => {
-        // Show tooltip on click
+      .attr("fill", "#333")
+      .on("mouseover", (event, d) => {
+        // Show tooltip on hover
         tooltip
           .style("opacity", 1)
+          .style("left", `${event.pageX + 20}px`)
+          .style("top", `${event.pageY + 20}px`)
           .html(`
-            <strong style="font-size: 16px;">Scene:</strong> ${d.scene}<br />
-            <strong style="font-size: 16px;">Lines:</strong> ${d.lines}<br />
-            <strong style="font-size: 16px;">Jurors:</strong> ${
-              d.jurors.length > 0 ? d.jurors.join(", ") : "None"
-            }<br />
-            <strong style="font-size: 16px;">Lines Per Juror:</strong><br />
-            <ul>
-              ${Object.entries(d.linesPerJuror)
-                .map(([juror, lines]) => `<li>${juror}: ${lines}</li>`)
-                .join("")}
-            </ul>
-          `)
-          .style("left", `${event.pageX + 10}px`)
-          .style("top", `${event.pageY + 10}px`);
+            <strong>Scene:</strong> ${d.scene}<br />
+            <strong>Lines:</strong> ${d.lines}<br />
+            <strong>Jurors:</strong> ${d.jurors.length > 0 ? d.jurors.join(", ") : "None"}
+            <svg width="200" height="150" id="tooltip-chart"></svg>
+          `);
+
+        renderBarChart(d.linesPerJuror);
       })
       .on("mouseout", () => {
-        // Hide tooltip
+        // Hide tooltip when mouse leaves
         tooltip.style("opacity", 0);
       });
 
-    // Add subtle styling to background to match the dashboard
-    d3.select(svgRef.current)
-      .style("background-color", "#f8f4e4"); // Light yellowish background
+    const renderBarChart = (linesPerJuror) => {
+      const data = Object.entries(linesPerJuror).map(([juror, lines]) => ({
+        juror,
+        lines,
+      }));
+
+      const chartWidth = 200;
+      const chartHeight = 150;
+      const margin = { top: 10, right: 10, bottom: 30, left: 30 };
+
+      const xScale = d3
+        .scaleBand()
+        .domain(data.map(d => d.juror))
+        .range([margin.left, chartWidth - margin.right])
+        .padding(0.1);
+
+      const yScale = d3
+        .scaleLinear()
+        .domain([0, d3.max(data, d => d.lines)])
+        .range([chartHeight - margin.bottom, margin.top]);
+
+      const chartSvg = d3.select("#tooltip-chart");
+
+      chartSvg.selectAll("*").remove();
+
+      // Add bars
+      chartSvg
+        .selectAll(".bar")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("x", d => xScale(d.juror))
+        .attr("y", d => yScale(d.lines))
+        .attr("width", xScale.bandwidth())
+        .attr("height", d => chartHeight - margin.bottom - yScale(d.lines))
+        .attr("fill", "#333");
+
+      // Add X axis
+      chartSvg
+        .append("g")
+        .attr("transform", `translate(0, ${chartHeight - margin.bottom})`)
+        .call(d3.axisBottom(xScale));
+
+      // Add Y axis
+      chartSvg
+        .append("g")
+        .attr("transform", `translate(${margin.left}, 0)`)
+        .call(d3.axisLeft(yScale));
+    };
   }, [data]);
 
-  return (
-    <div
-      style={{
-        padding: "20px",
-        fontFamily: "Georgia, 'Times New Roman', Times, serif",
-        backgroundColor: "#ffffff", // Matches dashboard item background
-        border: "1px solid #ddd", // Light border for consistency
-        borderRadius: "8px",
-        boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.05)",
-        margin: "10px 0"
-      }}
-    >
-      <h3
-        style={{
-          textAlign: "center",
-          color: "#333",
-          fontWeight: "bold",
-          fontSize: "24px",
-          textTransform: "uppercase",
-          marginBottom: "10px"
-        }}
-      >
-        Scene Line Analysis
-      </h3>
-      <svg ref={svgRef}></svg>
-    </div>
-  );
+  return <svg ref={svgRef}></svg>;
 };
 
 export default SceneLines;

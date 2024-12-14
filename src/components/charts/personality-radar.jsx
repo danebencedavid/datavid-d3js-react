@@ -20,7 +20,7 @@ const jurorsData = [
     'Critical Thinking': 6,
     Aggression: 5,
     'Open-Mindedness': 6,
-    image: 'https://danebencedavid.github.io/datavid-d3js-react/data/pics/12angrymenjuror1.jpg',
+    image: 'public/data/pictures/12angrymenjuror1.jpg',
   },
   {
     jurorName: 'Juror 2',
